@@ -1,5 +1,5 @@
 use std::fs::File;
-use std::io::{Write, BufReader, BufRead, Error};
+use std::io::{self, Write, BufReader, BufRead, Error};
 
 fn main() {
 
@@ -21,6 +21,8 @@ fn main() {
     write!(image_file, "\n255\n").expect("Write to file failed!");
 
     for j in (0..(image_height-1.0f64) as i16).rev() {
+        eprint!("\rScanlines remaining: {} ", j);
+        io::stdout().flush().unwrap();
         for i in 0..(image_width as i16) {
             let r = i as f64/ (image_width-1.);
             let g = j as f64/ (image_height-1.);
